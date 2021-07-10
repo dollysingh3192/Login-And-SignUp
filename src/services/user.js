@@ -50,21 +50,15 @@ function loginService(email, password) {
     };
 
     return fetch(`${config.apiUrl}/api/user/login`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // history.push('/dashboard')
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-
-            return user;
-        });
+        .then(handleResponse);
 }
 
 export const login = (email, password) => {
     return async (dispatch) => {
         dispatch(setLoader(true));
         try {
-            await loginService(email, password);
+            const user = await loginService(email, password);
+            localStorage.setItem('user', JSON.stringify(user));
             return true;
         } catch (error) {
             dispatch(setLoginMessage(error.toString()));

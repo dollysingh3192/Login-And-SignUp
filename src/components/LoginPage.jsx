@@ -22,13 +22,13 @@ function LoginPage() {
         setInputs(inputs => ({ ...inputs, [name]: value }));
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         if (inputs.email && inputs.password) {
-            const flag = dispatch(login(inputs.email, inputs.password));
+            const flag = await dispatch(login(inputs.email, inputs.password));
             if (flag) {
-                history.push('/dashboard')
+                history.push('/')
             }
         }
     }

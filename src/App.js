@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path="/dashboard" render={() => (
+          <Route exact path="/" render={() => (
             !isLoggedIn() ? (
               <Redirect to="/login" />
             ) : (<DashboardPage />)
