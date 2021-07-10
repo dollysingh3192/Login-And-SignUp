@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { newRegister } from '../services/user';
+import { setRegisterMessage } from '../slice/register';
 
 function RegisterPage() {
     const [user, setUser] = useState({
@@ -13,6 +14,12 @@ function RegisterPage() {
     const dispatch = useDispatch();
     const message = useSelector(state => state.register.message);
     const loader = useSelector(state => state.loader.loader);
+
+    useEffect(() => {
+        return () => {
+            setRegisterMessage('');
+        }
+    }, []);
 
     const redirect = () => {
         history.push('/login');
@@ -63,9 +70,12 @@ function RegisterPage() {
                 </form>
             </main>
             <p>Already an account? <a onClick={redirect} class="link-primary" style={{ "cursor": "pointer" }}>SignIn</a></p>
-            <div className="message">
-                {message}
-            </div>
+            {
+                message &&
+                <div className="message">
+                    {message}
+                </div>
+            }
         </React.Fragment>
     )
 }

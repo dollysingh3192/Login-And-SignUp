@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../services/user';
+import { setLoginMessage } from '../slice/login';
 
 function LoginPage() {
     const [inputs, setInputs] = useState({
@@ -12,6 +13,12 @@ function LoginPage() {
     const dispatch = useDispatch();
     const loader = useSelector(state => state.loader.loader);
     const message = useSelector(state => state.login.message);
+
+    useEffect(() => {
+        return () => {
+            setLoginMessage('');
+        }
+    }, []);
 
     const redirect = () => {
         history.push('/register');
